@@ -1,3 +1,4 @@
+![SnapConfig logo](snap_logo.png)
 # What is SnapConfig?
 **SnapConfig** is single header config reader library for C++. Its main goal is to provide great performance and customizability yet using as little space as possible. It has simplistic syntax, trying to stick as much as possible to plain text. That's why there is no specific file format associated with SnapConfig and it's solely your decision to choose an extension for your configuration files.
 
