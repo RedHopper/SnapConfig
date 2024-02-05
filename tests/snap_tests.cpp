@@ -63,5 +63,12 @@ TEST_CASE("SnapConfig are tested", "[snapconfig]") {
     REQUIRE(!config.get_error());
     REQUIRE(config.get("empty_variable2") == "");
     REQUIRE(!config.get_error());
+    const double floating_default{53923.2314};
+    config.set_default("floating", floating_default);
+    REQUIRE(!config.get_error());
+    const double floating{config.get_double("floating")};
+    REQUIRE(!config.get_error());
+    REQUIRE(floating == floating_default);
+
     REQUIRE(config.config_variables.size() == 10);
 }

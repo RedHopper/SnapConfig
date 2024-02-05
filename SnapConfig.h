@@ -638,6 +638,11 @@ public:
         return set_default(key, std::to_string(value));
     }
 
+    bool set_default(const std::string& key, const double value)
+    {
+        return set_default(key, std::to_string(value));
+    }
+
     void debug(const std::string& message,
     const std::string& prefix = "Snap: ",
     const char end_char = '\n')
