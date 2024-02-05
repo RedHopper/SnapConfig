@@ -1,0 +1,10 @@
+language: en
+time_to_sleep: 10
+
+# This is a comment that will be ignored by SnapConfig
+
+average_computation_time: 5.9523
+not_stripped:: See these two semicolons? It means this line is unstripped!    
+multiline: You can also use escape char\
+to create multiline variables.\
+As big as you like!
