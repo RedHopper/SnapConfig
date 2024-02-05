@@ -1,5 +1,5 @@
 # What is SnapConfig?
-SnapConfig is single header config reader library for C++. It's main goal is to provide great performance and customizability yet using as little space as possible. It has a nice simplistic syntax, trying to stick as much as possible to **plain text**. That's why there is no any specific file format associated with SnapConfig and it's solely your decision to choose an extension for your configuration files.
+**SnapConfig** is single header config reader library for C++. Its main goal is to provide great performance and customizability yet using as little space as possible. It has simplistic syntax, trying to stick as much as possible to plain text. That's why there is no specific file format associated with SnapConfig and it's solely your decision to choose an extension for your configuration files.
 
 # Example
 *config.txt*:
@@ -25,13 +25,14 @@ int main()
 }
 ```
 
-Output of the `make example && ./example`: *You can clone SnapConfig from the GitHub repository https://github.com/RedHopper/SnapConfig. SnapConfig is licensed under GNU GPL 3, and one of its goals is to stay under 1000 lines!*
-
+Output of `make example && ./example`: *You can clone SnapConfig from the GitHub repository https://github.com/RedHopper/SnapConfig. SnapConfig is licensed under GNU GPL 3, and one of its goals is to stay under 1000 lines!*
+# Documentation
+Everything you need to know about SnapConfig is [here](DOCS.md)
 # Roadmap
 Project's roadmap:
 * Add array support
 * Add more unit tests
-* Optimization and refactoring
+* Optimize and refactor
 
 # Contribution
 Any contribution or feedback is very welcome. You can contact me at whitesurfer@protonmail.com
