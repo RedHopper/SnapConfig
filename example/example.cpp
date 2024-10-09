@@ -31,8 +31,16 @@ int main()
     std::cout << "Config language: " << config.get("language") << "\n";
     std::cout << "This line is not stripped: " << config.get("not_stripped") << "\n";
     std::cout << "Multiline: " << config.get("multiline") << "\n";
+
+    int nonexistent_var{config.get_int("nonexistent")};
+
+    if (config.get_error()) {
+        std::cout << "Looks like variable 'nonexistent' doesn't exist in config file\n";
+    }
+
     double avg_ct{config.get_double("average_computation_time")};
     std::cout << "Average computation time (no context): " << avg_ct << "\n";
+
     int sleep_seconds{config.get_int("time_to_sleep")};
     std::cout << "Now sleeping for " << sleep_seconds << " seconds\n";
     sleep(sleep_seconds);

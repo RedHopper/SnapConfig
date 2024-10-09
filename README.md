@@ -28,12 +28,12 @@ int main()
 
 Output of `make example && ./example`: *You can clone SnapConfig from the GitHub repository https://github.com/RedHopper/SnapConfig. SnapConfig is licensed under GNU GPL 3, and one of its goals is to stay under 1000 lines!*
 # Documentation
-Everything you need to know about SnapConfig is [here](DOCS.md)
+You can check out documentation [here](DOCS.md)
 # Roadmap
 Project's roadmap:
 * Add array support
-* Add more unit tests
-* Optimize and refactor
+* Further optimize code
+* Add *sections*
 
 # Contribution
 Any contribution or feedback is very welcome. You can contact me at whitesurfer@protonmail.com

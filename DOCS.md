@@ -19,7 +19,6 @@ sleep(sleep_time);
 ```c_cpp
 double average_grade = config.get_double("average_grade");
 
-// Beware: this function just casts the get_double() result to float
 float water_boiling_temp = config.get_float("boiling_temp");
 ```
 
@@ -27,11 +26,9 @@ float water_boiling_temp = config.get_float("boiling_temp");
 ### Variable's value
 * By default value is stripped
 * You can change this behavior by writing not one, but two separating chars "::" after variable's name
-* You are able to escape some characters like: \n, \r and \t (you can expand this list by adding more values to "escapables" array in the source code)
-* It is encouraged to escape separating char, though it's not necessary
 * You are able to make multiline variables by putting the escape char at the end of the string
-* In multiline variables only the first line can be stripped, following lines won't be stripped
-* Empty variables are allowed
+* You are able to escape some characters like: \n, \r and \t (this list is expandable)
+* Empty variables *are* allowed
 
 Example:
 
@@ -45,29 +42,25 @@ mulitline\
 variables!
 empty_variable:
 ```
-### Names
-Varialbles' names are treated differently:
-* You can not escape chars in them. Hence this - "te\st: Var", will be treated as: variable with name "te\\st" and value "Var"
-* You should avoid using "\\" and other escape values like "\n\r\t" in your variables' names. This behavior is subject to change
-* Spaces in names are allowed, but discouraged
-* It is fine to put spaces before and after variable's name, but they will be stripped
+### Variable's name
+* You can not escape chars in them. Hence this - "tes\t: Var", will be treated as: variable with name "tes\\t" and value "Var"
+* Spaces in names *are* allowed
+* Names *are* stripped
 
 *names.txt*
 ```
-pos sible: works fine but discouraged
-finevar : It's fine
-    also_finevar   :    value
+Hello world: hello world!
+  spaces  : As much space as you need
 ```
 *names.cpp*
 ```c_cpp
-std::cout << config.get("pos sible") << "\n"; // "works fine but discouraged"
-std::cout << config.get("finevar") << "\n"; // "It's fine"
-std::cout << config.get("also_finevar") << "\n"; // "value"
+std::cout << config.get("Hello world") << "\n"; // "hello world!"
+std::cout << config.get("spaces") << "\n"; // "As much space as you need"
 ```
 
 ## Comments
 * You can create a comment by using "#" character at the beginning of the line
-* If "#" isn't in the beginning, it will be treated as a regular character 
+* If "#" isn't in the beginning, it will be treated as a regular character
 ```
 # This is a valid comment line
 variable: value # This is NOT a valid comment line
@@ -81,17 +74,18 @@ level_name: Space wreckers
 *main.cpp*
 ```c_cpp
 config.set_default("difficulty_level", "normal");
-std::cout << config.get("difficulty_level") << "\n"; // This will not produce an error since "difficulty_level" has a default value
-// You can also do
+std::cout << config.get("difficulty_level") << "\n"; // Everything's fine, using the default value
+// For other types
 config.set_default("velocity", 12);
 config.set_default("floating", 23.23);
 ```
-**Note**: SnapConfig prioritizes actually existing variables over default ones
+**Note**: SnapConfig prioritizes existing variables over default ones
 
 ## Checking for errors
-* You can check for errors by calling `get_error()` - will return error code or 0
-* You can get error as a human readable string by calling `get_error_message()`
-* You can check if a fatal error has occurred by calling `is_fatal_error()`
+* If `get...()` function wasn't able to get a value for name you provided `get_error()` can be used to get code of last error
+* Any new `get...()` call will overwrite any non-fatal error value
+* Fatal errors can occur during initialization process and will write an error to stderr. To check that config file was successfully read: `if (snap.get_error() != SnapConfig::Error::init) ...`
+* By default SnapConfig won't output non-fatal error messages. You can force it to do so by passing `true` as a second variable to a `get...()` function
 
 *config.txt*
 ```
@@ -103,23 +97,17 @@ favorite_book: Everything Bad Is Good For You
 *main.cpp*
 ```c_cpp
 SnapConfig config("config.txt");
-std::string username = config.get("username");
+std::string username = config.get("username"); // Will return an empty string, nothing will be printed in terminal
 
 if (config.get_error()) {
-    std::cout << "Error: something bad happened when getting variable: "
-        << config.get_error_message() << "\n";
+    std::cerr << "Error: 'username' variable doesn't exist!\n";
 }
 
+std::string book = config.get("favorite_book");
+std::cout << config.get_error() << "\n"; // Will output "0"
+
+float height = config.get_float("height", true) // Will print error in terminal
 ```
-**Important:** some of errors occurring in SnapCofig are fatal. When such error occurs, config will stop working and will return null values on get... functions. Some of fatal errors are:
-* config file doesn't exist
-* user has no read access to a config file
-* separating char and escape char have the same value
-
-You can also make `get()` (or any other type of get) function to create a fatal error if variable wasn't found by passing `true` as a second argument:  `config.get("very_important_variable", true)`
-
-## Changing debug level
-You can change amount of debug messages by setting the `debug_level` variable to `SnapConfig::DebugLevel::minimal`. It will make config to display only fatal errors.
 
 ## More features
 * You can change separating char and escape char when initializing SnapConfig. So if you don't like semicolon as a separating char, you can set any other. For example:

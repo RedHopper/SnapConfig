@@ -1,5 +1,5 @@
 language: en
-time_to_sleep: 10
+time_to_sleep: 2
 
 # This is a comment that will be ignored by SnapConfig
 
